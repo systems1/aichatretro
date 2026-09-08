@@ -9,6 +9,15 @@ chat UI: all your conversations in a sidebar, click any of them to scroll and re
 history, search across everything, and review chats from multiple services side by side. It behaves
 like the online chat apps — but uses **only your local data** and never touches the internet.
 
+## UI
+
+![AI Chat Retro interface](txtdata/aichatretro-ui.JPG)
+
+The main window shows your chats in a searchable sidebar on the left (grouped by service tabs:
+All / ChatGPT / DeepSeek / Gemini), with the selected conversation rendered as user/assistant
+chat bubbles in the main pane. The top bar holds the brand, live search box, and the Stats
+button.
+
 ## Prep
 
 1. **Download** your AI chats as `backup.zip` from each service.
