@@ -1,0 +1,24 @@
+# User data (private — each person has their own exports, never commit these)
+exports/
+data/
+*.pkl
+
+# Environment / secrets
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+
+# Docker runtime
+docker-compose.override.yml
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Claude Code working dir
+.claude/

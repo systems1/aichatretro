@@ -1,0 +1,9 @@
+# Build context: keep the image lean and never bake in personal data.
+data/
+exports/
+*.pyc
+__pycache__/
+.git/
+.vscode/
+PLAN.md
+data-export-reference-conversations.txt

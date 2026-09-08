@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Opt out of the browser's auto dark mode (Chrome/Edge on a dark OS theme
+       would otherwise paint this light UI black). Keep the theme light here. -->
+  <meta name="color-scheme" content="light">
+  <title>AI Chat Retro — Offline Chat Viewer</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div class="brand">
+        <span class="brand-mark">💬</span>
+        <span class="brand-name">AI Chat Retro</span>
+        <span class="brand-sub">offline</span>
+      </div>
+      <div id="service-tabs" class="tabs"></div>
+      <div class="topbar-right">
+        <input id="search-input" type="search" placeholder="Search chats… (Enter = full-text search)" autocomplete="off">
+        <button id="back-btn" class="btn ghost" style="display:none">← All chats</button>
+        <button id="stats-btn" class="btn ghost">Stats</button>
+      </div>
+    </header>
+
+    <div id="body">
+      <aside id="sidebar">
+        <ul id="conv-list" role="listbox"></ul>
+        <div id="list-status" class="list-status"></div>
+      </aside>
+
+      <main id="pane">
+        <div id="chat-header" class="chat-header"></div>
+        <div id="message-list" class="message-list"></div>
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">🗂️</div>
+          <h2>Your chats, offline.</h2>
+          <p>Select a conversation from the sidebar, or press <kbd>Enter</kbd> in the search box
+             for full-text search across every export.</p>
+          <p class="empty-muted">Reads all services under <code>exports/</code> — ChatGPT, DeepSeek, Gemini.</p>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Stats modal -->
+  <div id="stats-overlay" class="overlay" hidden>
+    <div class="modal">
+      <div class="modal-head">
+        <h2>AI Chat Retro</h2>
+        <button id="stats-close" class="btn ghost">Close</button>
+      </div>
+      <div id="stats-content" class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" hidden>
+    <button id="lightbox-close" class="lightbox-close">×</button>
+    <img id="lightbox-img" alt="">
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Loud startup-error banner: never a silent dark screen -->
+  <div id="startup-errors" class="startup-errors" hidden></div>
+  <noscript>
+    <div class="startup-errors" style="position:fixed;inset:0;z-index:200;background:#fff;color:#b00020;padding:40px;font:14px sans-serif;display:block">
+      ⚠️ This app needs JavaScript. Enable it and refresh. The page must be served by the app
+      (python3 app.py → http://localhost:5000), not opened as a file.
+    </div>
+  </noscript>
+
+  <script src="/js/markdown.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

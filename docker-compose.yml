@@ -1,0 +1,16 @@
+# AI Chat Retro — Docker Desktop edition
+#   docker compose up -d --build
+# then open http://localhost:5000 in your Windows browser.
+services:
+  aichatretro:
+    build: .
+    container_name: aichatretro
+    ports:
+      - "5000:5000"
+    # Your chat exports are mounted read-only from the repo on this machine.
+    # Add new exports, then restart: docker compose restart
+    volumes:
+      - ./exports:/app/exports:ro
+    environment:
+      - AICR_HOST=0.0.0.0
+    restart: unless-stopped

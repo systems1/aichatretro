@@ -1,0 +1,91 @@
+exports/
+├── chatgpt
+│   ├── chatgpt
+│   │   ├── ads.json
+│   │   ├── chat.html
+│   │   ├── conversation_asset_file_names.json
+│   │   ├── conversations-000.json
+│   │   ├── conversations-001.json
+│   │   ├── conversations-002.json
+│   │   ├── conversations-003.json
+│   │   ├── conversations-004.json
+│   │   ├── conversations-005.json
+│   │   ├── conversations-006.json
+│   │   ├── conversations-007.json
+│   │   ├── conversations-008.json
+│   │   ├── conversations-009.json
+│   │   ├── conversations-010.json
+│   │   ├── conversations-011.json
+│   │   ├── export_manifest.json
+│   │   ├── file-wkkR0h8WjiCghvom72xJVhzb.dat
+│   │   ├── file_0000000008ac71f783f20d72cfcb28b2.dat
+│   │   ├── file_000000000b9871fdb49785ef90282da9.dat
+│   │   ├── file_000000000bc071f7bae2b4001a97e4f1.dat
+│   │   ├── file_0000000016487230a7ef5cf314a5815d.dat
+│   │   ├── file_0000000016a481fd8f81bd840d173e1b.dat
+│   │   ├── file_0000000018b471f8b38ce39000b667f2.dat
+│   │   ├── file_00000000230471fd9df75d5e69dbc82d.dat
+│   │   ├── file_00000000262c81f798c71ecdf5a7f59b.dat
+│   │   ├── file_00000000272481fd926bb7ba9b9f0629.dat
+│   │   ├── file_000000002be081fdbd6adc23a28dc364.dat
+│   │   ├── file_0000000040b071fd8caa5874d268fa3c.dat
+│   │   ├── file_000000004e0472309a73ae9784c62451.dat
+│   │   ├── file_000000004e5071f885118122314eac5e.dat
+│   │   ├── file_000000005a8881fd9e6354115f8ab0d7.dat
+│   │   ├── file_000000005b5871f8abf4b1cda88ca3d1.dat
+│   │   ├── file_000000005c8871fd86aaecac562eb823.dat
+│   │   ├── file_00000000619471f889c205680609a1f8.dat
+│   │   ├── file_00000000621871fd8312d0e500134cf3.dat
+│   │   ├── file_00000000685471fda13dd6569893c492.dat
+│   │   ├── file_000000006c6081fbb6009be442ea7f4d.dat
+│   │   ├── file_00000000783481fda23fdd0f729fe4d9.dat
+│   │   ├── file_000000007cc472308c5a9bc7739a21d6.dat
+│   │   ├── file_000000007fec81fd876c00070a8a1ca5.dat
+│   │   ├── file_00000000896071f5979daaad6191ed5a.dat
+│   │   ├── file_000000008dd47230a9e3112bd1fc344b.dat
+│   │   ├── file_000000008dd881f6828f248e27701fc7.dat
+│   │   ├── file_00000000902471f5999a7e0f8ee06fa6.dat
+│   │   ├── file_00000000940481fdaa81db5433e4a3df.dat
+│   │   ├── file_0000000096a481fdadcbf40c92412a45.dat
+│   │   ├── file_0000000099b481fd9003566d7c69aa8f.dat
+│   │   ├── file_000000009d2481fbb337bc5a89ff6396.dat
+│   │   ├── file_00000000a0f481f7942606ab285e6c7f.dat
+│   │   ├── file_00000000a48471f883d7b89c81f2298e.dat
+│   │   ├── file_00000000a51c71fd94f20fed89e0ece6.dat
+│   │   ├── file_00000000a64471fda1ba5c476a2a4ff7.dat
+│   │   ├── file_00000000b2c471fdb0f1601653adb86f.dat
+│   │   ├── file_00000000b79c71fd8fe2edc174bfe4ab.dat
+│   │   ├── file_00000000bf6081fbbee91a662cabf8c0.dat
+│   │   ├── file_00000000c15071f5b9499e10989387a4.dat
+│   │   ├── file_00000000c3f471f8a0f27d16ceb63b51.dat
+│   │   ├── file_00000000c47c81fbbdf6d9932e6b6bf9.dat
+│   │   ├── file_00000000d2f88206871a4fd86e8d4d46.dat
+│   │   ├── file_00000000d6c471f89bb86b9b3eddd79d.dat
+│   │   ├── file_00000000e86c81fda52ca2bac02c53b4.dat
+│   │   ├── file_00000000eddc81fd9de32e3edbddd865.dat
+│   │   ├── file_00000000ee8c71fdb819f3a4815842bb.dat
+│   │   ├── file_00000000eec471fda9a2c1055d2c0337.dat
+│   │   ├── file_00000000feb471fd9eee5baec54305ae.dat
+│   │   ├── file_00000000fff871f5809866075eb11282.dat
+│   │   ├── library_files.json
+│   │   ├── shared_conversations.json
+│   │   ├── sites
+│   │   │   └── export_manifest.json
+│   │   ├── user.json
+│   │   └── user_settings.json
+│   └── chatgpt.zip
+├── deepseek
+│   ├── deepseek_data-2026-08-22
+│   │   ├── conversations.json
+│   │   └── user.json
+│   └── deepseek_data-2026-08-22.zip
+└── gemini
+    ├── Takeout
+    │   └── My Activity
+    │       └── Gemini Apps
+    │           ├── 1000119255-e4f93dface140d4b.jpg
+    │           ├── MyActivity.json
+    │           └── prices_USD_2026-08-07-1293549b9f898848.csv
+    └── takeout-20260908T013144Z-1-001.zip
+
+9 directories, 79 files
