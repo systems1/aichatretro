@@ -1,6 +1,18 @@
 # AI-Chat-Retro
 
-Review all your past AI chat conversations from their export backups — **offline**, right in your browser.
+**ChatGPT backup viewer · DeepSeek history reader · Gemini export viewer — 100% offline, self-hosted, privacy-first**
+
+Review all your past AI chat conversations from their export backups — **no cloud, no tracking, fully offline**. Your data never leaves your machine.
+
+## Why AI Chat Retro?
+
+If you've ever exported your ChatGPT data and struggled to actually **read** it, this tool is for you. AI Chat Retro is a free, open-source **ChatGPT export viewer** and **DeepSeek chat history reader** that parses your AI chat backups and turns them into a clean, browsable, searchable interface — entirely offline.
+
+- **100% local** — no data leaves your machine, no accounts, no analytics
+- **Multi-service** — reads exports from ChatGPT, DeepSeek, and Gemini in one place
+- **Self-hosted** — runs on your laptop or homelab, Docker included
+- **Privacy-first** — ideal for GDPR data export viewing and personal data portability
+- **Zero dependencies** beyond Python and Flask — lightweight and fast
 
 ## What it does
 
@@ -102,11 +114,15 @@ The easiest way to run the app — no Python install needed on the host.
 
 ## Use Cases
 
-- **Backup of all chats offline** — every conversation readable, no internet needed
-- **Retro past chat history** — scroll and re-read old conversations
+- **ChatGPT backup viewer** — read your exported ChatGPT conversations offline, no internet needed
+- **DeepSeek chat history reader** — browse and search your DeepSeek export backups locally
+- **Gemini export viewer** — view Google Gemini conversation exports in a clean chat UI
+- **AI chat history search** — full-text search across all your past AI conversations from one place
+- **GDPR data export viewer** — easily read and review your personal AI data exports
+- **Self-hosted AI chat archive** — keep a local, private archive of all your AI interactions
 - **Analytics** — counts per service, per model, and date ranges (Stats button)
 - **RAG with your data** — future: ask questions over your exported chats
-- **Reference of past ads from ChatGPT** — cross-reference past ad content
+- **Data portability** — own and access your AI conversation data on your own terms
 
 ## Tech stack
 
@@ -119,3 +135,11 @@ See [PLAN.md](PLAN.md) for architecture, the unified data schema, API surface, a
 ## Browser Support
 
 Use a current version of Chrome, Edge, Firefox, or Safari (Safari 14.1+). Internet Explorer 11 is not supported.
+
+---
+
+## Search Keywords
+
+*These are for discoverability — if you found this project by searching for any of these, it was intentional:*
+
+> ChatGPT export viewer, ChatGPT backup viewer, view ChatGPT conversations offline, read ChatGPT data export, ChatGPT history browser, DeepSeek chat export viewer, DeepSeek backup reader, Gemini export viewer, AI chat history viewer, AI conversation backup, self-hosted AI chat viewer, offline AI chat browser, ChatGPT JSON viewer, ChatGPT data portability, GDPR AI data export, local AI chat archive, ChatGPT chat reader, AI chat backup tool, no cloud AI chat viewer, privacy-first AI tool
