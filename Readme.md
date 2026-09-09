@@ -121,7 +121,7 @@ The easiest way to run the app — no Python install needed on the host.
 - **GDPR data export viewer** — easily read and review your personal AI data exports
 - **Self-hosted AI chat archive** — keep a local, private archive of all your AI interactions
 - **Analytics** — counts per service, per model, and date ranges (Stats button)
-- **RAG with your data** — future: ask questions over your exported chats
+- **RAG with your data** — offline "Ask": ask natural-language questions over your exported chats
 - **Data portability** — own and access your AI conversation data on your own terms
 
 ## Tech stack
@@ -131,6 +131,8 @@ The easiest way to run the app — no Python install needed on the host.
 - **Parsers:** one module per service (`parsers/`) normalizing every export format to one schema
 
 See [PLAN.md](PLAN.md) for architecture, the unified data schema, API surface, and edge cases handled.
+For the optional offline **Ask / RAG** feature (natural-language questions over your chat history,
+SQLite+FTS5 index), see [`rag/RAG-README.md`](rag/RAG-README.md).
 
 ## Browser Support
 

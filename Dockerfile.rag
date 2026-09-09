@@ -1,0 +1,30 @@
+# AI Chat Retro + RAG ("Ask" feature) — optional heavier image.
+# Includes sentence-transformers + faiss + llama-cpp-python so /api/ask works.
+# Build & run with:  docker compose -f docker-compose.rag.yml up -d --build
+# A .gguf model must be placed in ./models/ on the host (gitignored) and is
+# mounted read-only at runtime.
+FROM python:3.11-slim
+
+ENV AICR_HOST=0.0.0.0 \
+    AICR_PORT=5000 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Core deps first (Flask), then optional RAG deps.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-rag.txt .
+RUN pip install --no-cache-dir -r requirements-rag.txt
+
+COPY app.py .
+COPY parsers/ parsers/
+COPY rag/ rag/
+COPY static/ static/
+
+# Exports + models are mounted read-only at runtime (see docker-compose.rag.yml).
+RUN mkdir -p exports models
+
+EXPOSE 5000
+
+CMD ["python3", "app.py"]

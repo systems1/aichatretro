@@ -1,0 +1,19 @@
+# AI Chat Retro + RAG edition.
+#   docker compose -f docker-compose.rag.yml up -d --build
+# then open http://localhost:5000 in your browser.
+# A local LLM .gguf model in ./models/ (gitignored) enables generated answers;
+# without one, retrieval-only results are returned.
+services:
+  aichatretro-rag:
+    build:
+      context: .
+      dockerfile: Dockerfile.rag
+    container_name: aichatretro-rag
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./exports:/app/exports:ro
+      - ./models:/app/models:ro
+    environment:
+      - AICR_HOST=0.0.0.0
+    restart: unless-stopped

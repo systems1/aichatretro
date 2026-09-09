@@ -11,6 +11,10 @@ data/
 __pycache__/
 *.pyc
 
+# RAG runtime artifacts (local LLM models + serialized index — never commit)
+models/
+rag/index/
+
 # Docker runtime
 docker-compose.override.yml
 

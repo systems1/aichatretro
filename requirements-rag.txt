@@ -1,0 +1,21 @@
+# Optional RAG dependencies — install only if you want the Ask feature:
+#   pip install -r requirements-rag.txt
+# The core app (python3 app.py) runs without these; RAG simply reports
+# "not available" via /api/rag/status until they are installed.
+sentence-transformers>=3.0.0
+faiss-cpu>=1.7.4
+numpy>=1.24.0
+
+# Local answer generation (optional). Only needed to produce natural-language
+# answers; retrieval/sources work without it. Also requires a .gguf model in
+# the models/ directory (see rag/RAG-PLAN.md).
+#
+# llama-cpp-python has NO prebuilt wheel on PyPI, so `pip install` by default
+# builds it from source (compiles all of llama.cpp — 5-15+ min). Instead we
+# pull the official prebuilt PURE-CPU wheel index:
+#   --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu/
+# pip grabs llama_cpp_python-0.3.35-py3-none-manylinux2014_x86_64.whl directly.
+# (GB-scale CUDA/torch wheels are NOT needed — GGUF inference is CPU-only here.)
+
+--extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu/
+llama-cpp-python>=0.3.19

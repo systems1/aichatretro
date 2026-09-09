@@ -468,6 +468,11 @@
     box.hidden = false;
     box.textContent = msg;
   }
+  /* Expose minimal hooks for the optional RAG ask.js panel. */
+  window.appState = state;
+  window.SERVICE_COLORS = SERVICE_COLORS;
+  window.openConversation = openConversation;
+
   window.addEventListener('error', function (e) {
     reportFatal('⚠️ Startup error: ' + (e.message || 'unknown') +
       ' (' + String(e.filename || '').split('/').pop() + ':' + (e.lineno || '?') + ').' +

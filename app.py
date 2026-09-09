@@ -157,6 +157,72 @@ def api_search():
     return jsonify({"query": q, "total": len(ranked), "results": results})
 
 
+# --------------------------------------------------------------------------- #
+# RAG (optional — Ask feature). Works only if rag.available(); otherwise
+# returns a clear status so the rest of the app keeps working.
+# --------------------------------------------------------------------------- #
+
+def _rag_conversations():
+    return CONVERSATIONS
+
+
+@app.route("/api/rag/status")
+def api_rag_status():
+    try:
+        from rag import status
+        st = status()
+    except Exception as e:
+        st = {"available": False, "error": str(e)}
+    return jsonify({"rag": st})
+
+
+@app.route("/api/rag/build", methods=["POST"])
+def api_rag_build():
+    try:
+        from rag import build_index
+        n = build_index(_rag_conversations(), EXPORTS_ROOT)
+        return jsonify({"ok": True, "chunk_count": n})
+    except Exception as e:
+        return jsonify({"ok": False, "error": str(e)}), 500
+
+
+@app.route("/api/ask/sources")
+def api_ask_sources():
+    """Retrieval-only: return raw source chunks for a question (no LLM)."""
+    q = (request.args.get("q") or "").strip()
+    service = request.args.get("service", "all")
+    limit = _int_arg("limit", 5)
+    if not q:
+        return jsonify({"query": "", "sources": []})
+    try:
+        from rag import ensure_built, retrieve
+        ensure_built(_rag_conversations(), EXPORTS_ROOT)
+        sources = retrieve(q, service=None if service == "all" else service, k=limit)
+        return jsonify({"query": q, "sources": sources})
+    except Exception as e:
+        return jsonify({"query": q, "sources": [], "error": str(e)}), 200
+
+
+@app.route("/api/ask")
+def api_ask():
+    """Full RAG: retrieve context and generate an answer (if a local LLM)."""
+    q = (request.args.get("q") or "").strip()
+    service = request.args.get("service", "all")
+    limit = _int_arg("limit", 5)
+    if not q:
+        return jsonify({"query": "", "answer": None, "sources": [], "status": {"generated": False}})
+    try:
+        from rag import ensure_built, query
+        ensure_built(_rag_conversations(), EXPORTS_ROOT)
+        result = query(q, service=None if service == "all" else service, k=limit)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({
+            "query": q, "answer": None, "sources": [], "error": str(e),
+            "status": {"generated": False},
+        }), 200
+
+
 @app.route("/api/stats")
 def api_stats():
     per_service = [
