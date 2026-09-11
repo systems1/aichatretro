@@ -1,22 +1,22 @@
 # AI-Chat-Retro
 
-**ChatGPT backup viewer · DeepSeek history reader · Gemini export viewer — 100% offline, self-hosted, privacy-first**
+**ChatGPT backup viewer · DeepSeek history reader · Gemini export viewer · Claude export viewer — 100% offline, self-hosted, privacy-first**
 
 Review all your past AI chat conversations from their export backups — **no cloud, no tracking, fully offline**. Your data never leaves your machine.
 
 ## Why AI Chat Retro?
 
-If you've ever exported your ChatGPT data and struggled to actually **read** it, this tool is for you. AI Chat Retro is a free, open-source **ChatGPT export viewer** and **DeepSeek chat history reader** that parses your AI chat backups and turns them into a clean, browsable, searchable interface — entirely offline.
+If you've ever exported your ChatGPT data and struggled to actually **read** it, this tool is for you. AI Chat Retro is a free, open-source **ChatGPT export viewer**, **DeepSeek chat history reader**, and **Claude export viewer** that parses your AI chat backups and turns them into a clean, browsable, searchable interface — entirely offline.
 
 - **100% local** — no data leaves your machine, no accounts, no analytics
-- **Multi-service** — reads exports from ChatGPT, DeepSeek, and Gemini in one place
+- **Multi-service** — reads exports from ChatGPT, DeepSeek, Gemini, and Claude in one place
 - **Self-hosted** — runs on your laptop or homelab, Docker included
 - **Privacy-first** — ideal for GDPR data export viewing and personal data portability
 - **Zero dependencies** beyond Python and Flask — lightweight and fast
 
 ## What it does
 
-Loads every chat export under `exports/` (ChatGPT, DeepSeek, Gemini) and shows them in a familiar
+Loads every chat export under `exports/` (ChatGPT, DeepSeek, Gemini, Claude) and shows them in a familiar
 chat UI: all your conversations in a sidebar, click any of them to scroll and re-read the full
 history, search across everything, and review chats from multiple services side by side. It behaves
 like the online chat apps — but uses **only your local data** and never touches the internet.
@@ -26,7 +26,7 @@ like the online chat apps — but uses **only your local data** and never touche
 ![AI Chat Retro interface](txtdata/aichatretro-ui.JPG)
 
 The main window shows your chats in a searchable sidebar on the left (grouped by service tabs:
-All / ChatGPT / DeepSeek / Gemini), with the selected conversation rendered as user/assistant
+All / ChatGPT / DeepSeek / Gemini / Claude), with the selected conversation rendered as user/assistant
 chat bubbles in the main pane. The top bar holds the brand, live search box, and the Stats
 button.
 
@@ -37,8 +37,12 @@ button.
    - `exports/chatgpt/`
    - `exports/deepseek/`
    - `exports/gemini/`
+   - `exports/claude/` — unzip each `conversations-<NNN>.zip` under
+     `exports/claude/conversations/` (the `manifest-*.json` lists the one-time-use download URLs)
 3. **Extract** each zip — inside you'll find `conversations*.json` (or `MyActivity.json` /
-   `conversations.json`). These files **are** your past chats; the app reads them directly.
+   `conversations.json`; Claude ships `conversations/conversations-000/conversations.json`,
+   `light_metadata/`, and `projects/`). These files **are** your past chats; the app reads them
+   directly (a Claude shard that is still zipped is auto-extracted on load).
 
 > A reference listing of the current sample export layout is in
 > [`data-export-reference-conversations.txt`](data-export-reference-conversations.txt).
@@ -106,7 +110,7 @@ The easiest way to run the app — no Python install needed on the host.
 
 | Action | What happens |
 | --- | --- |
-| Browse | All chats listed in the sidebar, grouped by service tabs (All / ChatGPT / DeepSeek / Gemini) |
+| Browse | All chats listed in the sidebar, grouped by service tabs (All / ChatGPT / DeepSeek / Gemini / Claude) |
 | Filter | Type in the top search box to narrow the list live |
 | Full-text search | Press **Enter** in the search box for cross-chat snippet results |
 | Review | Click any conversation to read it as chat bubbles — images, reasoning, citations, voice transcripts included |
@@ -117,6 +121,7 @@ The easiest way to run the app — no Python install needed on the host.
 - **ChatGPT backup viewer** — read your exported ChatGPT conversations offline, no internet needed
 - **DeepSeek chat history reader** — browse and search your DeepSeek export backups locally
 - **Gemini export viewer** — view Google Gemini conversation exports in a clean chat UI
+- **Claude export viewer** — read your Claude (Anthropic) data-export conversations in a clean chat UI
 - **AI chat history search** — full-text search across all your past AI conversations from one place
 - **GDPR data export viewer** — easily read and review your personal AI data exports
 - **Self-hosted AI chat archive** — keep a local, private archive of all your AI interactions
@@ -144,4 +149,4 @@ Use a current version of Chrome, Edge, Firefox, or Safari (Safari 14.1+). Intern
 
 *These are for discoverability — if you found this project by searching for any of these, it was intentional:*
 
-> ChatGPT export viewer, ChatGPT backup viewer, view ChatGPT conversations offline, read ChatGPT data export, ChatGPT history browser, DeepSeek chat export viewer, DeepSeek backup reader, Gemini export viewer, AI chat history viewer, AI conversation backup, self-hosted AI chat viewer, offline AI chat browser, ChatGPT JSON viewer, ChatGPT data portability, GDPR AI data export, local AI chat archive, ChatGPT chat reader, AI chat backup tool, no cloud AI chat viewer, privacy-first AI tool
+> ChatGPT export viewer, ChatGPT backup viewer, view ChatGPT conversations offline, read ChatGPT data export, ChatGPT history browser, DeepSeek chat export viewer, DeepSeek backup reader, Gemini export viewer, Claude export viewer, Claude chat history reader, Claude data export viewer, AI chat history viewer, AI conversation backup, self-hosted AI chat viewer, offline AI chat browser, ChatGPT JSON viewer, ChatGPT data portability, GDPR AI data export, local AI chat archive, ChatGPT chat reader, AI chat backup tool, no cloud AI chat viewer, privacy-first AI tool

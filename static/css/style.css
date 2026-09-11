@@ -14,6 +14,7 @@
   --chatgpt: #10a37f;
   --deepseek: #4d6bfe;
   --gemini: #a66cff;
+  --claude: #d97757;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }

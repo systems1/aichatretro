@@ -1,7 +1,7 @@
 # CLAUDE.md — AI-Chat-Retro project notes
 
 ## Purpose
-Local-only web viewer for reading past AI chat exports from `exports/` (ChatGPT, DeepSeek, Gemini)
+Local-only web viewer for reading past AI chat exports from `exports/` (ChatGPT, DeepSeek, Gemini, Claude)
 offline. Python + Flask backend, vanilla-JS SPA (light theme — was dark; switched by user request).
 App reads the `exports/` folder it ships next to — user decision: **no persistent cache; parse fresh
 on every start**.
@@ -43,7 +43,8 @@ browser action — the parse is a blocking one-time step at boot. After that:
 ## Data & parsing (`parsers/`)
 One module per service; all normalize to one unified schema (timestamps = unix UTC floats,
 rendered content = markdown). Conversation key = `{service}/{id}`.
-Sample-data counts: **1130 ChatGPT + 24 DeepSeek + 41 Gemini threads = 1193**.
+Sample-data counts: **1130 ChatGPT + 24 DeepSeek + 41 Gemini groups + 4 Claude = 1197 distinct
+conversations shown** (2 Gemini thread groups resolve to a shared id → 39 unique Gemini keys).
 
 - **chatgpt.py** — sharded `conversations-*.json`, discovered via `export_manifest.json`
   (`logical_files.conversations.json.files`). Live thread = walk `parent` from `current_node`
@@ -58,12 +59,21 @@ Sample-data counts: **1130 ChatGPT + 24 DeepSeek + 41 Gemini threads = 1193**.
   `details[0].url`; no-url entries break adjacency. Each **"Prompted "** entry carries its own
   response in `safeHtmlItem[0].html` (prompt + reply in the same entry). `html_to_markdown()`
   (stdlib HTMLParser subclass) converts responses. Skip `Used/Cleared/Selected` meta activity.
+- **claude.py** (added 2026-09-11) — sharded `claude/conversations/conversations-<NNN>/conversations.json`
+  (JSON array). Role from `sender` (`human`=user). Chronological by `created_at`. `m["text"]` is
+  rendered markdown but can embed "This block is not supported..." placeholder fences for tool
+  blocks — stripped before display/embedding. `content[]` typed blocks: `text`/`thinking`/
+  `tool_use`/`tool_result`. `thinking` redacted to **summaries** → `thoughts`; text-block
+  `citations[].details.url` → citations; web_search/fetch `tool_result` knowledge → search_results;
+  `files[]` → name-only attachment chips (no binary assets in export). Unextracted
+  `conversations-*.zip` shards auto-extract on load via `ensure_extracted()`.
 
 ## Time formats gotcha
 - ChatGPT: unix float seconds.
 - DeepSeek: ISO `+08:00` — `datetime.fromisoformat` OK on Python 3.8.
 - Gemini: RFC3339 `...Z` — **Python 3.8 `fromisoformat` fails on `Z`**; `utc_ts()` in
   `parsers/base.py` replaces `Z`→`+00:00` before parsing.
+- Claude: RFC3339 `...Z`/`...±00:00` — same `utc_ts()` handling as Gemini.
 
 ## Frontend notes
 - `static/js/markdown.js` — hand-written offline renderer (no CDN). API: `renderMarkdown(str)`.

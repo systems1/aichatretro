@@ -4,7 +4,7 @@ Local-only web app to review all your past AI chat exports — offline, in your 
 
 ## Goal
 
-Read every export under `exports/` (ChatGPT, DeepSeek, Gemini) and present the chats in a
+Read every export under `exports/` (ChatGPT, DeepSeek, Gemini, Claude) and present the chats in a
 web UI that behaves like the online apps: a searchable sidebar of every conversation, a
 main pane rendering each chat as user/assistant bubbles, inline images, reasoning
 fold-ups, citations, voice-message transcripts, and cross-service full-text search.
@@ -16,7 +16,8 @@ fold-ups, citations, voice-message transcripts, and cross-service full-text sear
 |---|---|---|---|
 | ChatGPT | `chatgpt/chatgpt/conversations-000..011.json` (+50 `.dat` assets) | 1,130 | Array of convos; `mapping` tree with `parent` pointers; live thread = walk `parent` from `current_node` to root |
 | DeepSeek | `deepseek/deepseek_data-2026-08-22/conversations.json` | 24 | Array of convos; `mapping` tree with `children[0]`; role encoded in fragment `type` (REQUEST=user, RESPONSE/SEARCH/THINK=assistant) |
-| Gemini | `gemini/Takeout/My Activity/Gemini Apps/MyActivity.json` | 52 threads | Flat activity log; group consecutive entries by `details[0].url`; each "Prompted" entry carries prompt (title) + response (safeHtmlItem) |
+| Gemini | `gemini/Takeout/My Activity/Gemini Apps/MyActivity.json` | 41 groups (39 unique ids) | Flat activity log; group consecutive entries by `details[0].url`; each "Prompted" entry carries prompt (title) + response (safeHtmlItem) |
+| Claude | `claude/conversations/conversations-000/conversations.json` (sharded) | 4 | Array of convos; `chat_messages[]` ordered by `created_at`; role = `sender` (`human`=user/`assistant`); `content[]` typed blocks text/thinking/tool_use/tool_result |
 
 Full file inventory in `data-export-reference-conversations.txt`.
 
@@ -28,6 +29,7 @@ Browser (static SPA)  ──JSON API──►  Flask app.py  ──►  parsers/
   app.js  ├─state                                         chatgpt.py
   markdown.js (offline renderer)                         deepseek.py
   style.css (light theme)                                gemini.py
+                                                         claude.py
 ```
 
 **Unified schema invariant:** every conversation becomes
@@ -57,7 +59,14 @@ Each message: `{role, content, time, model, kind, thoughts, recap, audio_transcr
 - **DeepSeek** multi-fragment nodes (SEARCH+RESPONSE+THINK in one) → single assistant card with
   citations + reasoning fold-up.
 - **Gemini** `fromisoformat` on Python 3.8 **fails on `Z` suffix** — normalized to `+00:00` first.
-  `safeHtmlItem` HTML → markdown via local converter.
+  `safeHtmlItem` HTML → markdown via local converter. 2 of 41 thread groups resolve to a shared id
+  (duplicate `details[0].url`) → 39 unique keys shown.
+- **Claude** `chat_messages[]` sorted by `created_at` (parents are always sequential). `m["text"]`
+  can embed "This block is not supported..." placeholder fences standing in for tool blocks —
+  stripped before display/embedding. `thinking` is **redacted to summaries** (full CoT absent).
+  Text-block `citations[].details.url` → citations; `web_search`/`web_fetch` `tool_result`
+  knowledge → search results; `files[]` uploaded refs (no binary assets in the export → name-only
+  attachment chips). Unextracted `conversations-*.zip` shards auto-extract on load.
 - MIME sniffing by **magic bytes** (`.dat` has no extension), extension fallback.
 - Asset routes reject anything ≠ `basename()` (path traversal safe).
 - **CSS `[hidden]` specificity** — layout rules like `.overlay { display: flex }` override the
@@ -68,7 +77,7 @@ Each message: `{role, content, time, model, kind, thoughts, recap, audio_transcr
 
 ## Frontend (light theme)
 
-- Sticky topbar: service tabs (All | ChatGPT | DeepSeek | Gemini), debounced search, Stats button.
+- Sticky topbar: service tabs (All | ChatGPT | DeepSeek | Gemini | Claude), debounced search, Stats button.
 - 320px sidebar: progressive-render conversation list (windowed + IntersectionObserver), titles +
   relative dates + service dots.
 - Main pane: message bubbles (user right, assistant left), reasoning accordions, inline images →

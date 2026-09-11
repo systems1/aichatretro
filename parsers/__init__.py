@@ -8,17 +8,20 @@ import json
 import os
 
 from . import chatgpt as chatgpt_mod
+from . import claude as claude_mod
 from . import deepseek as deepseek_mod
 from . import gemini as gemini_mod
 
 SERVICE_LABELS = {
     "chatgpt": "ChatGPT",
+    "claude": "Claude",
     "deepseek": "DeepSeek",
     "gemini": "Gemini",
 }
 
 # Directory layout inside exports/<service>/ for the *data* (ignoring zip).
 CHATGPT_DATA = ("chatgpt", "chatgpt")
+CLAUDE_DATA = ("claude",)
 DEEPSEEK_DATA = ("deepseek", "deepseek_data-2026-08-22")
 GEMINI_DATA = ("gemini", "Takeout", "My Activity", "Gemini Apps")
 
@@ -92,6 +95,22 @@ def _build(exports_root):
             if counts[2] is None or (norm["updated_at"] or 0) > counts[2]:
                 counts[2] = norm["updated_at"]
         services.append(_service_meta(gemini_mod.SERVICE, counts))
+
+    claude_dir = _resolve(exports_root, CLAUDE_DATA)
+    if claude_dir:
+        counts = [0, None, None]
+        for conv in claude_mod.load_raw(claude_dir):
+            norm = claude_mod.normalize_conv(conv)
+            if not norm:
+                continue
+            key = f"{claude_mod.SERVICE}/{norm['id']}"
+            conversations[key] = norm
+            counts[0] += 1
+            if counts[1] is None or (norm["created_at"] or 0) < counts[1]:
+                counts[1] = norm["created_at"]
+            if counts[2] is None or (norm["updated_at"] or 0) > counts[2]:
+                counts[2] = norm["updated_at"]
+        services.append(_service_meta(claude_mod.SERVICE, counts))
 
     # Build summaries + per-conversation search blob
     for key, norm in conversations.items():

@@ -14,8 +14,8 @@
   };
 
   var els = {};
-  var SERVICE_COLORS = { chatgpt: '#10a37f', deepseek: '#4d6bfe', gemini: '#a66cff' };
-  var SERVICE_LABELS = { chatgpt: 'ChatGPT', deepseek: 'DeepSeek', gemini: 'Gemini' };
+  var SERVICE_COLORS = { chatgpt: '#10a37f', deepseek: '#4d6bfe', gemini: '#a66cff', claude: '#d97757' };
+  var SERVICE_LABELS = { chatgpt: 'ChatGPT', deepseek: 'DeepSeek', gemini: 'Gemini', claude: 'Claude' };
 
   function $(id) { return document.getElementById(id); }
 
@@ -300,8 +300,8 @@
       if (attRow.children.length) bubble.appendChild(attRow);
     }
 
-    if ((m.citations && m.citations.length) || (m.searchResults && m.searchResults.length)) {
-      bubble.appendChild(citationsBlock(m.citations || [], m.searchResults || []));
+    if ((m.citations && m.citations.length) || (m.search_results && m.search_results.length)) {
+      bubble.appendChild(citationsBlock(m.citations || [], m.search_results || []));
     }
 
     var foot = el('div', 'msg-foot');
